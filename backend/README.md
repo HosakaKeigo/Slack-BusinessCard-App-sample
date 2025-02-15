@@ -1,3 +1,10 @@
+## Endpoints
+### POST /createRecord
+- 名刺情報を受け取り、FileMakerにレコードを作成
+
+### POST /upload
+- 画像をアップロードして、名刺情報JSONを返却
+
 ## Required Bindings
 - Cloudflare KV
   - Set Id in `wrangler.toml`
