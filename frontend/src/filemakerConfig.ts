@@ -11,4 +11,5 @@ export const openFileUrl = `${baseFmpUrl}?script=<script_name>`;
 /**
  * [need configuration] specify script_name that searches records with name.
  */
-export const openFileWithNameUrl = (name: string) => `${baseFmpUrl}?script=<script_name>&param=${encodeURIComponent(name)}`;
+export const openFileWithNameUrl = (name: string) =>
+	`${baseFmpUrl}?script=<script_name>&param=${encodeURIComponent(name)}`;

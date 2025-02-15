@@ -148,12 +148,14 @@ export default {
 		});
 
 		app.action(ACTION_IDs.CREATE_RECORD, async ({ payload }) => {
-			const action = payload.actions.filter(action => action.action_id === ACTION_IDs.CREATE_RECORD)[0];
+			const action = payload.actions.filter(
+				(action) => action.action_id === ACTION_IDs.CREATE_RECORD,
+			)[0];
 			if (action.type !== "button") {
 				console.error("Invalid action type");
 				return {
 					status: 400,
-				}
+				};
 			}
 
 			const { threadTs, channelId } = JSON.parse(action.value);
@@ -163,7 +165,7 @@ export default {
 					channelId,
 					threadTs,
 					errorMessage: "エラーが発生しました: channelId or threadTs is not found",
-				})
+				});
 				return {
 					status: 400,
 				};
@@ -180,12 +182,17 @@ export default {
 							"Content-Type": "application/json",
 						},
 						body: JSON.stringify(recordData),
-					}
-				)
+					},
+				);
 				if (!response.ok) {
-					throw new Error(`Failed to create record: ${response.status} ${response.statusText}`);
+					throw new Error(
+						`Failed to create record: ${response.status} ${response.statusText}`,
+					);
 				}
-				const resJson = await response.json() as { success: boolean, message?: string };
+				const resJson = (await response.json()) as {
+					success: boolean;
+					message?: string;
+				};
 				if (!resJson.success) {
 					throw new Error(resJson.message);
 				}
@@ -200,16 +207,15 @@ export default {
 							type: "section",
 							text: {
 								type: "mrkdwn",
-								text: `:white_check_mark: *レコードを作成しました*: ${recordData.name}${recordData.name_kana ? ` (${recordData.name_kana})` : ""}`
-							}
-						}
-					]
-				})
+								text: `:white_check_mark: *レコードを作成しました*: ${recordData.name}${recordData.name_kana ? ` (${recordData.name_kana})` : ""}`,
+							},
+						},
+					],
+				});
 				return {
 					status: 200,
-				}
-			}
-			catch (e) {
+				};
+			} catch (e) {
 				await postErrorResponse({
 					client: app.client,
 					channelId,
@@ -218,7 +224,7 @@ export default {
 				});
 				return {
 					status: 400,
-				}
+				};
 			}
 		});
 

@@ -1,4 +1,9 @@
-import type { SlackAPIClient, AnyMessageBlock, SectionBlock, HeaderBlock } from "slack-cloudflare-workers";
+import type {
+	SlackAPIClient,
+	AnyMessageBlock,
+	SectionBlock,
+	HeaderBlock,
+} from "slack-cloudflare-workers";
 import type { ProcessFailureResult, ProcessSuccessResult } from "../types";
 import { createBusinessCardBlocks, summaryBlocks } from "./slackBlocks";
 
@@ -44,7 +49,9 @@ export async function postMessage({
 export async function postSuccessResults(
 	params: BaseMessageParams & { results: ProcessSuccessResult[] },
 ) {
-	const businessCardBlocks = params.results.map((success) => createBusinessCardBlocks(success.fileName, success.result.data));
+	const businessCardBlocks = params.results.map((success) =>
+		createBusinessCardBlocks(success.fileName, success.result.data),
+	);
 	// Note: Blockは最大50個まで。5つずつにまとめる。（APIリクエストを軽減するため）
 	const chunks: AnyMessageBlock[][] = [];
 	for (let i = 0; i < businessCardBlocks.length; i += 5) {
