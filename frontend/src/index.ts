@@ -32,7 +32,6 @@ export default {
 		 * 添付ファイル付きメッセージのリスナー
 		 */
 		app.event("message", async ({ context, payload }) => {
-			console.log(payload);
 			if (payload.subtype !== "file_share") {
 				return;
 			}
@@ -149,7 +148,6 @@ export default {
 		});
 
 		app.action(ACTION_IDs.CREATE_RECORD, async ({ payload }) => {
-			console.log(payload);
 			const action = payload.actions.filter(action => action.action_id === ACTION_IDs.CREATE_RECORD)[0];
 			if (action.type !== "button") {
 				console.error("Invalid action type");
@@ -191,7 +189,6 @@ export default {
 				if (!resJson.success) {
 					throw new Error(resJson.message);
 				}
-				console.log(resJson.message);
 
 				await postMessage({
 					client: app.client,
